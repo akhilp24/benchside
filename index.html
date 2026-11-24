@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benchside: download and install</title>
+  <meta name="description" content="Download Benchside, the Field lab's nanopore telomere tools: basecalling with Dorado and POD5 telomere extraction.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="#"><img src="/assets/icon.png" alt="" width="28" height="28"><span>Benchside</span></a>
+      <nav>
+        <a href="#install">Install</a>
+        <a href="#setup">Set up</a>
+        <a href="#updating">Updating</a>
+        <a href="#versions">Versions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <img class="hero-icon" src="/assets/icon.png" alt="" width="88" height="88">
+      <h1>Benchside</h1>
+      <p class="lede">Nanopore telomere tools for the Field lab. Basecall POD5 with Dorado and watch the run live, pull the telomeric reads out of a run, and keep every run's settings and results in one place.</p>
+
+      <div id="download" class="download">
+        <div class="download-main">
+          <a id="primary" class="button primary" href="https://github.com/akhilp24/benchside/releases">Download Benchside</a>
+          <div id="primary-note" class="note">Looking up the latest version…</div>
+        </div>
+        <div id="others" class="others"></div>
+      </div>
+    </section>
+
+    <section class="wrap tools">
+      <div class="tool">
+        <h3>Basecalling</h3>
+        <p>Runs the Dorado on your computer (or inside WSL on the lab's Windows computers) with the same commands you'd type, then splits by barcode. Live progress, and any run can be repeated on another file.</p>
+      </div>
+      <div class="tool">
+        <h3>POD5 Telomere Extraction</h3>
+        <p>Uses NanoTel's G- and C-strand summaries to pull the telomeric reads out of a run's POD5, with thresholds you can review on charts first.</p>
+      </div>
+      <div class="tool">
+        <h3>Everything recorded</h3>
+        <p>Each run gets its own dated folder with its outputs, the exact commands and a run record, so any result can be traced and run again.</p>
+      </div>
+    </section>
+
+    <section id="install" class="wrap section">
+      <h2>Install</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" data-tab="windows" aria-selected="true">Windows</button>
+        <button role="tab" data-tab="wsl" aria-selected="false">Lab computers (Windows + WSL)</button>
+        <button role="tab" data-tab="mac" aria-selected="false">Mac</button>
+      </div>
+
+      <div class="panel" data-panel="windows">
+        <ol class="steps">
+          <li><strong>Download</strong> the Windows installer (<code>Benchside_…_x64-setup.exe</code>) above.</li>
+          <li><strong>Open it.</strong> Windows may say <em>“Windows protected your PC”</em>. Click <strong>More info</strong>, then <strong>Run anyway</strong>. This appears because Benchside isn't signed with a paid certificate yet.</li>
+          <li><strong>Finish the installer.</strong> It installs for your account only, so it doesn't need administrator rights. The first time, it may download Microsoft's WebView2 component, which needs an internet connection.</li>
+          <li><strong>Open Benchside</strong> from the Start menu, then follow <a href="#setup">Set up</a>.</li>
+        </ol>
+        <div class="callout">
+          <strong>Basecalling on a laptop.</strong> Dorado is fast on an NVIDIA GPU. Without one it runs on the processor, which is fine for a short test but far too slow for a full <code>sup</code> run; do those on the lab computers. Everything else in Benchside works the same on any computer.
+        </div>
+      </div>
+
+      <div class="panel" data-panel="wsl" hidden>
+        <p>On the lab computers Dorado lives inside WSL (Windows Subsystem for Linux), where it uses the NVIDIA GPU. Benchside is installed on Windows as usual and runs Dorado inside WSL for you.</p>
+        <ol class="steps">
+          <li><strong>Install Benchside</strong> as in the Windows steps.</li>
+          <li><strong>Check Dorado.</strong> Open <em>Settings → Dorado</em>. If Dorado is installed in WSL (on its <code>PATH</code>, or in a folder like <code>~/dorado/bin/dorado</code>) it shows with a <em>WSL · Ubuntu</em> label. If it isn't, choose <em>Into WSL (Ubuntu)</em> next to <strong>Download Dorado</strong>.</li>
+          <li><strong>Check the GPU.</strong> In the WSL terminal, <code>nvidia-smi</code> should list the graphics card. If it doesn't, update the NVIDIA driver on Windows; WSL uses the Windows driver, so don't install a Linux NVIDIA driver inside WSL.</li>
+          <li><strong>samtools</strong> is only needed to remove unmapped reads after alignment. Install it in WSL with <code>sudo apt install samtools</code>.</li>
+        </ol>
+        <div class="callout">
+          <strong>Where files can be.</strong> POD5 and reference files on Windows drives work (Benchside passes them to Dorado as <code>/mnt/c/…</code>), and so do files inside WSL (<code>\\wsl$\Ubuntu\…</code>). Network drives aren't visible inside WSL: copy the POD5 to a local drive first. The commands each run shows are the ones to type in the WSL terminal, so a run can be repeated by hand.
+        </div>
+      </div>
+
+      <div class="panel" data-panel="mac" hidden>
+        <ol class="steps">
+          <li><strong>Download</strong> the Mac version (<code>Benchside_…_aarch64.dmg</code>) above, open it and drag <strong>Benchside</strong> to <strong>Applications</strong>.</li>
+          <li><strong>Open it once from Applications.</strong> macOS will say it can't check Benchside for malicious software. Open <em>System Settings → Privacy &amp; Security</em>, scroll down, click <strong>Open Anyway</strong> next to Benchside and confirm. You only do this the first time.</li>
+          <li>Follow <a href="#setup">Set up</a>.</li>
+        </ol>
+        <div class="callout">
+          <strong>Apple Silicon only.</strong> Benchside is built for M-series Macs. Oxford Nanopore no longer makes Dorado for Intel Macs, so there's no Intel version.
+        </div>
+      </div>
+    </section>
+
+    <section id="setup" class="wrap section">
+      <h2>Set up</h2>
+      <ol class="steps">
+        <li><strong>Choose the Benchside folder.</strong> The first screen asks where results go. Each run gets a dated folder inside it.</li>
+        <li><strong>Dorado.</strong> <em>Settings → Dorado</em> finds Dorado if it's installed, or downloads it from Oxford Nanopore. Updates to Dorado are a button there too, and the version an update replaces is kept so you can switch back.</li>
+        <li><strong>Add the tools you use.</strong> <em>Add tools</em> in the sidebar: Basecalling and POD5 Telomere Extraction.</li>
+        <li><strong>Models.</strong> <em>Basecalling → Models</em> shows the Dorado models on the computer. Point the models folder at the lab's models, download more there, or let runs download what they need the first time.</li>
+        <li><strong>Try a short run.</strong> <em>Basecalling → Start a run</em>, choose a POD5 file, open <em>Advanced</em> and set <em>Read limit</em> to 500, then <strong>Start run</strong>. It should finish in a minute or two.</li>
+      </ol>
+    </section>
+
+    <section id="updating" class="wrap section">
+      <h2>Updating</h2>
+      <p>When a new version is published, Benchside's Home page says so with a link back here. Download it and install it over the old one. Settings, run history and results are kept.</p>
+      <p class="muted">Something not working? In Benchside open <em>Logs</em>, click <strong>Save as file</strong> and send the file to Akhil.</p>
+    </section>
+
+    <section id="versions" class="wrap section">
+      <h2>Versions</h2>
+      <div id="releases"><p class="muted">Loading…</p></div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    Benchside, for the Field lab. Downloads come from <a href="https://github.com/akhilp24/benchside/releases">GitHub releases</a>.
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
