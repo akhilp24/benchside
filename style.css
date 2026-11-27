@@ -78,11 +78,6 @@ nav a:hover { color: var(--ink); }
 .note { font-size: 14px; }
 .others { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; font-size: 14px; }
 
-/* Tools */
-.tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 24px; }
-.tool { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; box-shadow: 0 1px 2px var(--shadow); }
-.tool p { margin: 0; font-size: 14px; color: var(--muted); }
-
 /* Sections */
 .section { padding-top: 40px; padding-bottom: 8px; }
 .section h2 { font-size: 30px; margin: 0 0 16px; }
@@ -107,7 +102,6 @@ nav a:hover { color: var(--ink); }
 .foot { padding-top: 48px; padding-bottom: 48px; font-size: 13px; color: var(--faint); }
 
 @media (max-width: 720px) {
-  .tools { grid-template-columns: 1fr; }
   nav { gap: 14px; }
   nav a:nth-child(n+3) { display: none; }
   .hero h1 { font-size: 40px; }
