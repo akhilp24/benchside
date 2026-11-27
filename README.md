@@ -1,6 +1,6 @@
 # Benchside
 
-Downloads and installation instructions for **Benchside**, the Field lab's nanopore telomere tools (basecalling with Dorado, POD5 telomere extraction).
+Downloads and installation instructions for **Benchside**, nanopore telomere tools (basecalling with Dorado, POD5 telomere extraction).
 
 **Download page:** see the link in this repository's description.
 
